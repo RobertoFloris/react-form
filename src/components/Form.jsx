@@ -12,6 +12,11 @@ const Form = () => {
     }
   };
 
+  const handlerDelete = (index) => {
+    const newList = list.filter((item, i) => i !== index);
+    setList(newList);
+  }
+
   return (
     <form className="container mt-5" onSubmit={handlerSubmit}>
       <div className="mb-3">
@@ -27,7 +32,10 @@ const Form = () => {
 
       <ul>
         {list.map((item, index) => (
-          <li key={index}>{item}</li>
+          <li key={index}>
+            {item}
+            <span className="m-5" onClick={() => handlerDelete(index)}>×</span>
+          </li>
         ))}
       </ul>
 

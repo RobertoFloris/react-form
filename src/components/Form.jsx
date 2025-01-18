@@ -1,15 +1,19 @@
-import { useState } from "react"
+import { useState } from "react";
 
 const Form = () => {
-
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState("");
+  const [list, setList] = useState([]);
 
   const handlerSubmit = (e) => {
-    setTitle(e.target.value);
+    e.preventDefault();
+    if (title.trim()) {
+      setList([...list, title]);
+      setTitle("");
+    }
   };
 
   return (
-    <form className="container mt-5">
+    <form className="container mt-5" onSubmit={handlerSubmit}>
       <div className="mb-3">
         <label className="form-label">Title</label>
         <input
@@ -17,13 +21,19 @@ const Form = () => {
           className="form-control"
           placeholder="title"
           value={title}
-          onChange={handlerSubmit} />
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </div>
 
+      <ul>
+        {list.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
 
       <button type="submit" className="btn btn-primary">Invia</button>
     </form>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;
